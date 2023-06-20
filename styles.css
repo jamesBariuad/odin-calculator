@@ -1,51 +1,57 @@
-body{
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-#calculator{
-    display: flex;
-    flex-wrap: wrap;
-
-    background-color: darksalmon;
-    border:10px solid darksalmon
+#calculator {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: darksalmon;
+  border: 10px solid darksalmon;
+  width: 289px;
 }
 
-#display{
-    display: flex;
-    width: 100%;
-    background-color: rgb(248, 228, 203);
-    height: 70px;
-    margin-bottom: 6px;
+#display {
+  display: flex;
+  width: 100%;
+  background-color: rgb(248, 228, 203);
+  height: 70px;
+  margin-bottom: 6px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: x-large;
+  overflow: auto;
+}
+
+
+#digits {
+  display: flex;
+  gap: 3px;
+ 
+}
+
+.buttons {
+  width: 70px;
+  height: 70px;
+  background-color: peachpuff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#operations {
+  width: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
 }
 
 #digits {
-    display: flex;
-    gap: 3px;
-}
-
-.buttons{
-    width: 70px;
-    height: 70px;
-    background-color: peachpuff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#operations{
-    width: 70px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-}
-
-#digits{
-    display: flex;
-    flex-wrap: wrap;
-    width: 219px;
-    
+  display: flex;
+  flex-wrap: wrap;
+  width: 219px;
 }

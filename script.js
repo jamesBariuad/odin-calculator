@@ -31,3 +31,34 @@ const operate = (firstNumber, secondNumber, operator) => {
       return divide(firstNumber, secondNumber);
   }
 };
+
+let displayValue = "";
+
+const display = document.querySelector("#display");
+
+const digits = document.querySelectorAll(".digits");
+digits.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    displayValue += e.target.textContent;
+    display.textContent = displayValue;
+  });
+});
+
+// const operators = document.querySelectorAll(".operators")
+// operators.forEach((button)=>{
+//     button.addEventListener("click", (e)=>{
+//         firstNumber = +display.textContent
+//         operator=e.target.id
+//         console.log(operator,firstNumber)
+//     })
+// })
+
+const ac= document.querySelector("#ac")
+ac.addEventListener("click",()=>{
+    operator=""
+    firstNumber=""
+    secondNumber=""
+    displayValue=""
+    display.textContent=0
+})
+
