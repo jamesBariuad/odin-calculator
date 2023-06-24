@@ -12,7 +12,9 @@ const multiply = (firstNumber, secondNumber) => {
 
 const divide = (firstNumber, secondNumber) => {
   if (secondNumber === 0) {
-    return "huh";
+    
+    
+     return( display.textContent="dividing by zero broke the calculator! press AC u dolt")
   }
   return firstNumber / secondNumber;
 };
@@ -37,8 +39,8 @@ let operatorIsclicked = false;
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digits");
 
-const isOperatorClicked = () => {
-  if (operatorIsclicked == true && display.textContent != "") {
+const clearDisplayAfterOperatorClick = () => {
+  if (operatorIsclicked && display.textContent != "") {
     storeCurrentDisplay();
     display.textContent = "";
     operatorIsclicked = false;
@@ -46,7 +48,7 @@ const isOperatorClicked = () => {
 };
 
 const displayDigitsClicked = (e) => {
-  isOperatorClicked();
+  clearDisplayAfterOperatorClick();
   if (display.textContent == 0) {
     display.textContent = "";
   }
@@ -62,7 +64,7 @@ let result = undefined;
 
 const storeCurrentDisplay = () => {
   if (!firstNumber) {
-    return (firstNumber = +display.textContent);
+    return (firstNumber = +display.textContent), "1st";
   }
   if (firstNumber && !secondNumber) {
     return (secondNumber = +display.textContent);
@@ -72,11 +74,23 @@ const operators = document.querySelectorAll(".operators");
 
 const handleOperatorClick = (e) => {
   operatorIsclicked = true;
+  if (!result) {
+    handleEqualsClick();
+  }
   if (!operator) {
     operator = e.target.id;
   }
-  if (operator && e.target.classList[1] == "operators") {
+
+  if (result && display.textContent != result) {
+    firstNumber = result;
+    secondNumber = +display.textContent;
+    result = operate(firstNumber, secondNumber, operator);
     operator = e.target.id;
+    return (display.textContent = result);
+  }
+
+  if (operator && e.target.classList[1] == "operators") {
+    return (operator = e.target.id);
   }
 };
 operators.forEach((button) =>
@@ -103,15 +117,14 @@ const handleEqualsClick = (e) => {
     storeCurrentDisplay();
   }
 
-  if(result==+display.textContent){
-    firstNumber=result
-    result=operate(firstNumber,secondNumber,operator) 
-    return display.textContent= result
+  if (result == +display.textContent) {
+    firstNumber = result;
+    result = operate(firstNumber, secondNumber, operator);
+    return (display.textContent = result);
   }
   if (result) {
     firstNumber = result;
     secondNumber = +display.textContent;
-    console.log(firstNumber, secondNumber, e.target.id);
     result = operate(firstNumber, secondNumber, operator);
     return (display.textContent = result);
   }
