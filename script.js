@@ -49,10 +49,13 @@ const clearDisplayAfterOperatorClick = () => {
 const displayDigitsClicked = (e) => {
   clearDisplayAfterOperatorClick();
 
-  if (display.textContent.length == 1 && e.target.textContent == "0") {
-    return;
+  if (display.textContent != "0") {
+    return (display.textContent += e.target.textContent);
   }
-  display.textContent += e.target.textContent;
+
+  if (display.textContent == 0 && e.target.textContent != 0) {
+    return (display.textContent = e.target.textContent);
+  }
 };
 
 digits.forEach((button) => {
@@ -151,4 +154,16 @@ decimal.addEventListener("click", () => {
     return;
   }
   display.textContent += ".";
+});
+
+const undoButton = document.querySelector("#undo");
+undo.addEventListener("click", () => {
+  console.log(display.textContent == 0);
+
+  let undoDigits = display.textContent.slice(0, -1);
+
+  if (undoDigits.length == 0) {
+    return (display.textContent = "0");
+  }
+  return (display.textContent = undoDigits);
 });
