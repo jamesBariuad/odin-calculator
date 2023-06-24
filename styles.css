@@ -27,11 +27,29 @@ body {
   text-align: center;
 }
 
+#clear-area {
+  display: flex;
+  width: 100%;
+  margin-bottom: 3px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 45%;
+  height: 30px;
+  background-color: peachpuff;
+  cursor: pointer;
+  margin: 3px 0px;
+}
 
 #digits {
   display: flex;
   gap: 3px;
- 
 }
 
 .buttons {

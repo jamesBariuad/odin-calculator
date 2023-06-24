@@ -12,9 +12,8 @@ const multiply = (firstNumber, secondNumber) => {
 
 const divide = (firstNumber, secondNumber) => {
   if (secondNumber === 0) {
-    
-    
-     return( display.textContent="dividing by zero broke the calculator! press AC u dolt")
+    return (display.textContent =
+      "dividing by zero broke the calculator! AC to reset");
   }
   return firstNumber / secondNumber;
 };
@@ -49,10 +48,10 @@ const clearDisplayAfterOperatorClick = () => {
 
 const displayDigitsClicked = (e) => {
   clearDisplayAfterOperatorClick();
-  if (display.textContent == 0) {
-    display.textContent = "";
-  }
 
+  if (display.textContent.length == 1 && e.target.textContent == "0") {
+    return;
+  }
   display.textContent += e.target.textContent;
 };
 
@@ -144,4 +143,12 @@ buttons.forEach((button) => {
   button.addEventListener("mouseup", () => {
     button.style.backgroundColor = "peachpuff";
   });
+});
+
+const decimal = document.querySelector("#decimal");
+decimal.addEventListener("click", () => {
+  if (display.textContent.includes(".")) {
+    return;
+  }
+  display.textContent += ".";
 });
