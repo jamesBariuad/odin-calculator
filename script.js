@@ -21,14 +21,15 @@ const divide = (firstNumber, secondNumber) => {
 let firstNumber, secondNumber, operator;
 
 const operate = (firstNumber, secondNumber, operator) => {
+  waitingForSecondNumber = false;
   switch (operator) {
-    case "add":
+    case "+":
       return add(firstNumber, secondNumber);
-    case "subtract":
+    case "-":
       return subtract(firstNumber, secondNumber);
-    case "multiply":
+    case "*":
       return multiply(firstNumber, secondNumber);
-    case "divide":
+    case "/":
       return divide(firstNumber, secondNumber);
   }
 };
@@ -46,20 +47,22 @@ const clearDisplayAfterOperatorClick = () => {
   }
 };
 
-const displayDigitsClicked = (e) => {
+const displayDigitsClicked = (digit) => {
   clearDisplayAfterOperatorClick();
 
   if (display.textContent != "0") {
-    return (display.textContent += e.target.textContent);
+    return (display.textContent += digit);
   }
 
-  if (display.textContent == 0 && e.target.textContent != 0) {
-    return (display.textContent = e.target.textContent);
+  if (display.textContent == 0 && digit != 0) {
+    return (display.textContent = digit);
   }
 };
 
 digits.forEach((button) => {
-  button.addEventListener("click", displayDigitsClicked);
+  button.addEventListener("click", (e) =>
+    displayDigitsClicked(e.target.textContent)
+  );
 });
 
 let result = undefined;
@@ -73,30 +76,30 @@ const storeCurrentDisplay = () => {
   }
 };
 const operators = document.querySelectorAll(".operators");
-
-const handleOperatorClick = (e) => {
+let waitingForSecondNumber = false;
+const handleOperatorClick = (operation) => {
   operatorIsclicked = true;
+  waitingForSecondNumber = true;
   if (!result) {
     handleEqualsClick();
   }
   if (!operator) {
-    operator = e.target.id;
+    return (operator = operation);
   }
 
   if (result && display.textContent != result) {
     firstNumber = result;
     secondNumber = +display.textContent;
     result = operate(firstNumber, secondNumber, operator);
-    operator = e.target.id;
+    operator = operation;
     return (display.textContent = result);
   }
-
-  if (operator && e.target.classList[1] == "operators") {
-    return (operator = e.target.id);
+  if (operator) {
+    return (operator = operation);
   }
 };
 operators.forEach((button) =>
-  button.addEventListener("click", (e) => handleOperatorClick(e))
+  button.addEventListener("click", (e) => handleOperatorClick(e.target.id))
 );
 
 const ac = document.querySelector("#ac");
@@ -111,7 +114,7 @@ ac.addEventListener("click", () => clearAll());
 
 const equals = document.querySelector("#equals");
 
-const handleEqualsClick = (e) => {
+const handleEqualsClick = () => {
   if (!firstNumber) {
     return;
   }
@@ -149,21 +152,49 @@ buttons.forEach((button) => {
 });
 
 const decimal = document.querySelector("#decimal");
-decimal.addEventListener("click", () => {
+const handleDecimalClick = () => {
   if (display.textContent.includes(".")) {
     return;
   }
   display.textContent += ".";
-});
+};
+decimal.addEventListener("click", handleDecimalClick);
 
 const undoButton = document.querySelector("#undo");
-undo.addEventListener("click", () => {
-  console.log(display.textContent == 0);
-
+const handleUndoClick = () => {
   let undoDigits = display.textContent.slice(0, -1);
 
   if (undoDigits.length == 0) {
     return (display.textContent = "0");
   }
+
+  if (result && waitingForSecondNumber == false) {
+    result = +undoDigits;
+  }
+  if (waitingForSecondNumber) {
+    secondNumber = display.textContent;
+  }
+
   return (display.textContent = undoDigits);
-});
+};
+undoButton.addEventListener("click", handleUndoClick);
+
+document.addEventListener("keydown", (e) => handleKeyboardInput(e));
+
+const handleKeyboardInput = (e) => {
+  if (e.key >= 0 && e.key <= 9) {
+    return displayDigitsClicked(e.key);
+  }
+  if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
+    return handleOperatorClick(e.key);
+  }
+  if (e.key == "=" || e.key == "Enter") {
+    return handleEqualsClick();
+  }
+  if (e.key == ".") {
+    return handleDecimalClick();
+  }
+  if (e.key == "Backspace") {
+    return handleUndoClick();
+  }
+};
