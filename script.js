@@ -143,11 +143,17 @@ equals.addEventListener("click", (e) => handleEqualsClick(e));
 
 const buttons = document.querySelectorAll(".buttons");
 buttons.forEach((button) => {
-  button.addEventListener("mousedown", () => {
+  button.addEventListener("mousedown", (e) => {
     button.style.backgroundColor = "black";
   });
-  button.addEventListener("mouseup", () => {
-    button.style.backgroundColor = "peachpuff";
+  button.addEventListener("mouseup", (e) => {
+    if (e.target.classList[1] == "digits" || e.target.id == "decimal") {
+      button.style.backgroundColor = "#f9fffb";
+    } else if (e.target.classList[1] == "operators") {
+      button.style.backgroundColor = "#e4dabf";
+    } else {
+      button.style.backgroundColor = "#fd802c";
+    }
   });
 });
 
@@ -182,6 +188,9 @@ undoButton.addEventListener("click", handleUndoClick);
 document.addEventListener("keydown", (e) => handleKeyboardInput(e));
 
 const handleKeyboardInput = (e) => {
+  if (e.key == " ") {
+    return;
+  }
   if (e.key >= 0 && e.key <= 9) {
     return displayDigitsClicked(e.key);
   }

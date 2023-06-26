@@ -3,20 +3,55 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
+  background-color: #32302a;
+  margin: 0;
+}
+
+#container {
+  border: 10px solid #dcd2b7;
+  background-color: #dcd2b7;
+  border-radius: 5px;
+  box-shadow: 1px 1px 0px #878170, 2px 2px 0px #878170, 3px 3px 0px #878170,
+    4px 4px 0px #878170, 5px 5px 0px #878170, 6px 6px 0px #878170,
+    7px 7px 0px #878170, 8px 8px 0px #878170, 9px 9px 0px #878170,
+    10px 10px 0px #878170, 11px 11px 11px #878170;
+}
+
+@font-face {
+  font-family: eurostile;
+  src: url(./font/EuroStyle-Normal.ttf);
+}
+#container-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  font-size: xx-large;
+  font-family: eurostile;
+  font-weight: 600;
+  letter-spacing: 0.1em;
 }
 
 #calculator {
   display: flex;
   flex-wrap: wrap;
-  background-color: darksalmon;
-  border: 10px solid darksalmon;
+  background-color: #170d0e;
+  border: 10px solid #170d0e;
   width: 289px;
 }
 
+@font-face {
+  font-family: digitalFont;
+  src: url(./font/DIGITALDREAMFAT.ttf);
+}
+
 #display {
+  font-family: digitalFont;
+  color: #fb7a75;
+  text-shadow: #aa4033 0px 0px 20px;
   display: flex;
   width: 100%;
-  background-color: rgb(248, 228, 203);
+  background-color: #191106;
   height: 70px;
   margin-bottom: 6px;
   align-items: center;
@@ -55,11 +90,17 @@ body {
 .buttons {
   width: 70px;
   height: 70px;
-  background-color: peachpuff;
+
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+}
+
+.digits,
+#decimal {
+  background-color: #f9fffb;
 }
 
 #operations {
@@ -73,4 +114,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 219px;
+}
+
+.operators,
+.clear-buttons {
+  background-color: #e4dabf;
+}
+
+#equals {
+  background-color: #fd802c;
 }
